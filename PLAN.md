@@ -49,3 +49,10 @@ The future 360° showroom must connect to the **same product system** as everyth
 - Gallery viewer: thumbnails, "View in 3D", back button, in-browser model upload
 - Contrast / dark-mode fixes, mobile overflow fixes
 - Repo is public; no secrets or `.env` committed
+
+## Privacy Audit (2026-09-01)
+
+Nothing sensitive (no passwords, keys, or tokens). Two personal-information items exist; **decision: leave as-is for now, revisit later**:
+
+- **Git commit email** — all commits authored by `mdnr <aiman.scolex@gmail.com>`, visible to anyone opening a commit on GitHub. If we ever want to hide it: rewrite git history (author + committer) and force-push, plus switch git config to a `noreply` address going forward.
+- **Windows username in scripts** — `C:\Users\aiman\AppData\Local\Temp\opencode\...` hard-coded in `scripts/verify-browser.cjs`, `verify-centering.cjs`, `verify-upload.cjs`. If we later clean up: replace with `path.join(os.tmpdir(), ...)` (also makes scripts portable to Mac/Linux).
