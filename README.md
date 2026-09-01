@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lumière — 3D Product Visualization Website
 
-## Getting Started
+A premium, modern web-based 3D product visualization website built with **Next.js 16 (App Router)**, **React Three Fiber**, and **Tailwind CSS v4**.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Home page** — product-focused hero, featured catalogue, collection grid, CTA
+- **Product catalogue** — category filters + price sorting (empty state handled)
+- **Product detail page** — specs, features, variants, image gallery, related products
+- **Interactive 3D viewer** — reusable `ProductViewer` component that loads any GLB/glTF:
+  - Rotate (drag), Zoom (scroll), Pan (right-drag)
+  - Reset view button
+  - Loading state ("Loading 3D model…")
+  - Error state ("Couldn't load the 3D model") with retry
+  - Auto-rotate, contact shadows, environment lighting
+- **Responsive** desktop/mobile layout, smooth CSS/Framer animations
+- **Sample data** — 4 realistic products with 4 procedural GLB models
+
+## Stack
+
+- Next.js 16 + TypeScript (strict) + App Router
+- React 19 + React Three Fiber + drei
+- Three.js (r185) with GLTF/GLB loader
+- Tailwind CSS v4
+
+## Code layout
+
+```
+src/
+├── app/                      # Next.js routes (home, catalogue, products/[slug])
+│   ├── page.tsx              # Home page
+│   ├── catalogue/page.tsx    # Catalogue with filters/sorting
+│   └── products/[slug]/page.tsx  # Product detail with 3D viewer
+├── components/
+│   ├── three/
+│   │   ├── ProductViewer.tsx      # Reusable 3D viewer (canvas/controls/states)
+│   │   ├── ProductModel.tsx       # GLB loading, normalization, Draco ready
+│   │   ├── ViewerLoading.tsx      # Loading overlay
+│   │   └── ViewerControls.tsx     # Reset view / hint UI
+│   ├── layout/               # Header, Footer
+│   └── ui/                   # ProductCard, SortSelect, ProductVariantPicker
+├── data/
+│   └── products.ts           # Product types + sample data (single source of truth)
+└── lib/
+    └── modelConfig.ts        # 3D config: quality profiles, Draco, model URL resolver
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 3D architecture & future-ready structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The 3D implementation is deliberately separable so these are easy to add later:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Draco/KTX2 compression** — `modelQualityProfiles` in `src/lib/modelConfig.ts` already define per-quality loader setups; `useGLTF`'s Draco param is wired in `ProductModel`.
+- **Lazy loading / prefetch** — `preloadModel()` helper is ready; the viewer only mounts its `Canvas` when the page needs it.
+- **CDN-hosted models** — `resolveModelUrl()` in `modelConfig.ts` is the single choke point to prefix a CDN.
+- **Multiple quality levels** — `ProductViewer` accepts a `quality` prop (high/medium/low).
+- **360° showroom, hotspots, AR, configurator, CMS/e-commerce** — product data is normalized in `products.ts` (variants, specs, features, pricing) and the viewer exposes `onLoad/onError/reset` that these features can hook into.
 
-## Learn More
+## Development
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm run lint       # eslint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Regenerate the placeholder GLB models:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+node scripts/generate-models.cjs
+```
 
-## Deploy on Vercel
+Browser-verify the 3D viewer (requires a local Edge/Chrome and `puppeteer-core`):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+node scripts/verify-browser.cjs
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+- Models are procedurally generated placeholders (`public/models/*.glb`); drop in real GLB/glTF files and update `model3d` in `src/data/products.ts`.
+- No C# code is present in this project — it is a TypeScript/Next.js application.
