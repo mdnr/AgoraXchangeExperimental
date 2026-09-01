@@ -86,12 +86,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
               )}
             </div>
 
-            <h1 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight">
+            <h1 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
               {product.name}
             </h1>
             <p className="mt-2 text-lg text-neutral-600">{product.tagline}</p>
 
-            <p className="mt-6 text-3xl font-bold">
+            <p className="mt-6 text-3xl font-bold text-neutral-900">
               {formatPrice(product)}
             </p>
 
@@ -128,15 +128,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Trust */}
             <div className="mt-8 grid grid-cols-3 gap-3 border-y border-neutral-100 py-6 text-center">
               <div>
-                <p className="text-sm font-semibold">Free ship</p>
+                <p className="text-sm font-semibold text-neutral-900">Free ship</p>
                 <p className="text-xs text-neutral-600">Orders over $50</p>
               </div>
               <div>
-                <p className="text-sm font-semibold">30 days</p>
+                <p className="text-sm font-semibold text-neutral-900">30 days</p>
                 <p className="text-xs text-neutral-600">Free returns</p>
               </div>
               <div>
-                <p className="text-sm font-semibold">2 years</p>
+                <p className="text-sm font-semibold text-neutral-900">2 years</p>
                 <p className="text-xs text-neutral-600">Warranty</p>
               </div>
             </div>
@@ -148,7 +148,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       {product.features.length > 0 && (
         <section className="bg-neutral-50 py-16 sm:py-24">
           <div className="mx-auto max-w-7xl px-5">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
               Why you&apos;ll love it
             </h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -160,7 +160,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 text-xs font-bold text-white">
                     0{i + 1}
                   </span>
-                  <h3 className="mt-4 text-lg font-semibold">{f.title}</h3>
+                  <h3 className="mt-4 text-lg font-semibold text-neutral-900">{f.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                     {f.description}
                   </p>
@@ -174,7 +174,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       {/* Specifications */}
       {product.specifications.length > 0 && (
         <section className="mx-auto max-w-7xl px-5 py-16 sm:py-24">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
             Specifications
           </h2>
           <div className="mt-8 divide-y divide-neutral-100">
@@ -192,7 +192,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       {(related.length > 0 || fallbackRelated.length > 0) && (
         <section className="bg-neutral-50 py-16 sm:py-24">
           <div className="mx-auto max-w-7xl px-5">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
               You may also like
             </h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -215,7 +215,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     <p className="text-[11px] font-medium uppercase tracking-wider text-neutral-600">
                       {p.category}
                     </p>
-                    <h3 className="mt-1 font-semibold">{p.name}</h3>
+                    <h3 className="mt-1 font-semibold text-neutral-900">{p.name}</h3>
                     <p className="mt-1 text-sm font-bold">{formatPrice(p)}</p>
                   </div>
                 </Link>

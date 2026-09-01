@@ -30,7 +30,7 @@ export default async function CataloguePage({
           <p className="text-xs font-medium uppercase tracking-wider text-neutral-600">
             Catalogue
           </p>
-          <h1 className="mt-2 text-4xl sm:text-5xl font-bold tracking-tight">
+          <h1 className="mt-2 text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
             All products
           </h1>
           <p className="mt-4 max-w-lg text-neutral-600">

@@ -140,7 +140,7 @@ export default function HomePage() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <div>
             <p className="text-xs font-medium uppercase tracking-wider text-neutral-600">Featured</p>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">
+            <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
               Hand-picked for you
             </h2>
           </div>
@@ -168,7 +168,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-neutral-600">Collection</p>
-              <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">
+              <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
                 Explore everything
               </h2>
             </div>
