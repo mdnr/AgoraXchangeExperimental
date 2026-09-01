@@ -36,11 +36,13 @@ export const modelQualityProfiles: Record<string, ModelQualityProfile> = {
 export const defaultModelQuality = "high";
 
 /**
- * Resolves the final URL for a model. Currently returns the public path as-is,
- * but is the single place to later inject a CDN prefix (e.g. assets.example.com).
+ * Resolves the final URL for a model. Prefixes the GitHub Pages base path so
+ * assets inside /public are fetchable when the app is hosted in a sub-directory
+ * (e.g. /AgoraXchangeExperimental/models/...). Locally this is a no-op.
  */
 export function resolveModelUrl(path: string): string {
-  return path;
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  return path.startsWith("/") ? `${base}${path}` : path;
 }
 
 export const viewerConfig = {

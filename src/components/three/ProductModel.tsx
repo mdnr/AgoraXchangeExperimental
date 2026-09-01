@@ -24,8 +24,12 @@ export function ProductModel({ url, profile, onLoad, onError }: ProductModelProp
   const notifiedRef = useRef(false);
 
   // `useDraco` accepts a boolean (CDN path auto) or a custom decoder path string.
+  // Prefix a local decoder path with the GitHub Pages base path so the decoder
+  // files resolve when hosted from a sub-directory.
   const draco: string | boolean = profile.useDraco
-    ? (profile.dracoDecoderPath ?? true)
+    ? (profile.dracoDecoderPath
+        ? `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${profile.dracoDecoderPath}`
+        : true)
     : false;
 
   const model = useGLTF(url, draco);

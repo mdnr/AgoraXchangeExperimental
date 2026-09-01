@@ -1,26 +1,41 @@
+"use client";
+
 import Link from "next/link";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { products, getCategories } from "@/data/products";
 import { ProductCard } from "@/components/ui/ProductCard";
 import { SortSelect } from "@/components/ui/SortSelect";
 
-export default async function CataloguePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string; sort?: string }>;
-}) {
-  const { category, sort } = await searchParams;
+export default function CataloguePage() {
+  return (
+    <Suspense>
+      <Catalogue />
+    </Suspense>
+  );
+}
+
+function Catalogue() {
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category") ?? undefined;
+  const sort = searchParams.get("sort") ?? undefined;
 
   const categories = ["All", ...getCategories()];
 
-  const filtered = category && category !== "All"
-    ? products.filter((p) => p.category === category)
-    : [...products];
+  const filtered =
+    category && category !== "All"
+      ? products.filter((p) => p.category === category)
+      : [...products];
 
   if (sort === "price-asc") {
     filtered.sort((a, b) => a.price - b.price);
   } else if (sort === "price-desc") {
     filtered.sort((a, b) => b.price - a.price);
   }
+
+  const baseCatalogPath = category && category !== "All"
+    ? `/catalogue?category=${encodeURIComponent(category)}`
+    : "/catalogue";
 
   return (
     <>
@@ -67,10 +82,7 @@ export default async function CataloguePage({
           {/* Sort */}
           <div className="flex items-center gap-2 text-sm">
             <span className="text-neutral-600">Sort</span>
-            <SortSelect
-              defaultValue={sort ?? "featured"}
-              basePath={category && category !== "All" ? `/catalogue?category=${encodeURIComponent(category)}` : "/catalogue"}
-            />
+            <SortSelect defaultValue={sort ?? "featured"} basePath={baseCatalogPath} />
           </div>
         </div>
       </section>
