@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-// Repo name → deployed sub-path (e.g. https://<user>.github.io/AgoraXchangeExperimental/).
+// Repo name → deployed sub-path (e.g. https://<user>.github.io/LumireXchangeExperimental/).
 // Leave unset (default "/") for local dev / root deployment.
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 

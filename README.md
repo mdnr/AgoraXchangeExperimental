@@ -1,6 +1,6 @@
 # Lumière — 3D Product Visualization Website
 
-> **Live site:** <https://mdnr.github.io/AgoraXchangeExperimental/>
+> **Live site:** <https://mdnr.github.io/LumireXchangeExperimental/>
 
 A premium, modern web-based 3D product visualization website built with **Next.js 16 (App Router)**, **React Three Fiber**, and **Tailwind CSS v4**.
 
